@@ -57,3 +57,8 @@ elif [ "$VAR1" = "$VAR3" ]; then
      echo "backing up"
      echo " "
     sudo  mysqldump -proot --databases sample > /opt/backups/backup.sql
+  else
+   echo "No match"
+fi
+crontab -l
+
