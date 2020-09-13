@@ -6,7 +6,7 @@ if [ "$VAR1" = "$VAR2" ]; then
     echo " "
     echo "Installing packages"
     echo " "
-    sudo yum install httpd mod_ssl openssl mysql-server mysql php php-mysql php-gd php-mbstring
+    sudo yum install httpd mysql-server mysql php php-mysql
     a=1
     until [ $a -eq 0 ]
     do
@@ -39,13 +39,13 @@ if [ "$VAR1" = "$VAR2" ]; then
   rm -rf git
   echo "backing up"
   echo " "
-  sudo  mysqldump -proot --databases sample > /opt/backups/backup.sql
+  bash backup.sh
 
   elif [ "$VAR1" = "$VAR3" ]; then
     echo "Debian Platform"
     echo " "
     echo "Installing packages"
-    sudo apt-get install apache2 php libapache2-mod-php php-mysql mysql-server
+    sudo apt-get install apache2 php libapache2-mod-php php-mysql mysql-server 
     a=1
     until [ $a -eq 0 ]
     do
@@ -74,7 +74,7 @@ if [ "$VAR1" = "$VAR2" ]; then
     rm -rf git
      echo "backing up"
      echo " "
-    sudo  mysqldump -proot --databases sample > /opt/backups/backup.sql
+    bash backup.sh
 
   else
     echo "No match"
