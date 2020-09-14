@@ -8,9 +8,9 @@ if [ "$VAR1" = "$VAR2" ]; then
     echo " "
     sudo yum install httpd mysql-server mysql php php-mysql
     a=1
-    until [ $a -eq 0 ]
+    until [ $a -eq 5 ]
     do
-    echo "1 - start service 2 - stop service 3 - status 4 - version 0 - exit"
+    echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
     read a
     if [ $a == 1 ]; then
       sudo service httpd start
@@ -25,6 +25,8 @@ if [ "$VAR1" = "$VAR2" ]; then
      httpd -v
      mysql -V
      php -v
+   elif [ $a == 0 ]; then
+     sudo yum install httpd mysql-server mysql php php-mysql
   else
     echo "bye bye"
   fi
@@ -38,18 +40,18 @@ if [ "$VAR1" = "$VAR2" ]; then
   cp /home/ec2-user/git/info.php /var/www/html/
   rm -rf git
   echo "backing up"
-  echo " "
+  echo ""
   bash backup.sh
 
   elif [ "$VAR1" = "$VAR3" ]; then
     echo "Debian Platform"
     echo " "
     echo "Installing packages"
-    sudo apt-get install apache2 php libapache2-mod-php php-mysql mysql-server 
+    sudo apt-get install apache2 php libapache2-mod-php php-mysql mysql-server
     a=1
-    until [ $a -eq 0 ]
+    until [ $a -eq 5 ]
     do
-    echo "1 - start service 2 - stop service 3 - status 4 - version 0 - exit"
+    echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
     read a
     if [ $a == 1 ]; then
      sudo service apache2 start
@@ -64,9 +66,13 @@ if [ "$VAR1" = "$VAR2" ]; then
       apache2 -v
       mysql -V
       php -v
+   elif [ $a == 0 ]; then
+     sudo apt-get install apache2 php libapache2-mod-php php-mysql mysql-server
    else
      echo "bye bye"
    fi
+   sudo service apache2 restart
+   sudo service mysql restart
    done
     mkdir git
     git clone https://github.com/menakakarichiyappakumar/ass1.git git
@@ -74,9 +80,10 @@ if [ "$VAR1" = "$VAR2" ]; then
     rm -rf git
      echo "backing up"
      echo " "
-    bash backup.sh
+     bash backup.sh
 
   else
     echo "No match"
  fi
   crontab -l
+
