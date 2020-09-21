@@ -14,18 +14,15 @@ if [ $user = "root" ]; then
         }
 
          command(){
-             a=1
+             echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
+            read a
              until [ $a -eq 5 ]
               do
-                echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
-                read a
+                echo "Enter the Service "
+                read ser
                 if [ $a == 0 ]; then
-                    echo "Enter the package you want to install "
-                    read pac
-                    yum install $pac
+                   yum install $ser
                 elif [ $a == 1 ]; then
-                    echo "Enter the service you want to start"
-                    read ser
                     if [ -f "/etc/init.d/$ser" ]; then
                         service $ser start
                     else
@@ -33,20 +30,17 @@ if [ $user = "root" ]; then
                         service $ser start
                     fi
                 elif [ $a == 2 ]; then
-                    echo "Enter the service you want to stop"
-                    read ser
                     service $ser stop
                 elif [ $a == 3 ]; then
-                    echo "Enter the service to get status"
-                    read ser
                     service $ser status
                 elif [ $a == 4 ]; then
-                    echo "Enter the service to get version"
-                    read ser
-                    $ser -v
+                $ser -v
                 else
                     echo "bye bye"
                 fi
+                echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
+                read a
+                
               done
          }
 
@@ -77,40 +71,32 @@ if [ $user = "root" ]; then
         }
 
         command(){
-            a=1
+            echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
+            read a
             until [ $a -eq 5 ]
             do
-                echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
-                read a
+                echo "Enter the service name  "
+                read ser
                 if [ $a == 0 ]; then
-                    echo "Enter the package you want to install "
-                    read pac
-                    apt-get install $pac
+                   apt-get install $ser
                 elif [ $a == 1 ]; then
-                    echo "Enter the service you want to start"
-                    read ser
-                    service="mysqld"
-                    if [ -f "/etc/init.d/$ser" ]; then
+                   if [ -f "/etc/init.d/$ser" ]; then
                         service $ser start
                     else
                         apt-get install $ser
                         service $ser start
                     fi
                 elif [ $a == 2 ]; then
-                    echo "Enter the service you want to stop"
-                    read ser
                     service $ser stop
                 elif [ $a == 3 ]; then
-                    echo "Enter the service to get status"
-                    read ser
                     service $ser status
                 elif [ $a == 4 ]; then
-                    echo "Enter the service to get version"
-                    read ser
                     $ser -v
                 else
                     echo "bye bye"
                 fi
+            echo "0 - install 1 - start service 2 - stop service 3 - status 4 - version 5 - exit"
+            read a
             done
          }
 
@@ -142,3 +128,4 @@ if [ $user = "root" ]; then
 else
     echo "only root user is allowed"
 fi
+"$@"
